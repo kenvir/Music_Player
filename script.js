@@ -29,8 +29,6 @@ const prevBtn = $(".btn-prev");
 const repeatBtn = $(".btn-repeat");
 const randomBtn = $(".btn-random");
 
-// let songs;
-
 const volume = $("#volume");
 const volumeBox = $(".volume-box");
 
@@ -40,14 +38,17 @@ const app = {
   isRandom: false,
   isRepeat: false,
   config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+
   setConfig(key, value) {
     this.config[key] = value;
     localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
   },
+
   loadConfig() {
     this.isRandom = this.config.isRandom;
     this.isRepeat = this.config.isRepeat;
   },
+
   setupToConfig() {
     if (this.isRandom) {
       this.handleRandomSongs();
@@ -58,7 +59,9 @@ const app = {
       repeatBtn.classList.add("active");
     }
   },
+
   currentIndex: 0,
+
   defineProperties() {
     Object.defineProperty(this, "currentSong", {
       get() {
@@ -66,6 +69,7 @@ const app = {
       },
     });
   },
+
   loadCurrentSong() {
     if (this.isRandom) {
       audio.src = this.randomSongs[this.currentIndex].path;
@@ -79,116 +83,119 @@ const app = {
       cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
     }
   },
+
   songs: [
     {
-      name: "Dừng chân, đứng lại",
-      author: "NamLee, Tofu, An ft VoVanDuc",
-      image: "./assets/img/song1.jpg",
-      path: "./assets/music/song1.mp3",
+      name: "Một bước yêu vạn dạm đau",
+      author: "Mr.Siro",
+      image: "./assets/img/1.jfif",
+      path: "./assets/music/MotBuocYeuVanDamDau.mp3",
     },
     {
-      name: "Chưa được yêu như thế",
-      author: "Trang",
-      image: "./assets/img/song2.jpg",
-      path: "./assets/music/song2.mp3",
+      name: "Không thể cùng nhau suốt kiếp",
+      author: "Mr.Siro",
+      image: "./assets/img/2.jfif",
+      path: "./assets/music/KhongTheCungNhauSuotKiep.mp3",
     },
     {
-      name: "Qua những tiếng ve",
-      author: "Tofu, Urabe ft Xesi",
-      image: "./assets/img/song3.jpg",
-      path: "./assets/music/song3.mp3",
+      name: "Khóc cùng em",
+      author: "Mr.Siro",
+      image: "./assets/img/3.jfif",
+      path: "./assets/music/KhocCungEm.mp3",
     },
     {
-      name: "Một thuở thanh bình",
-      author: "Tùng Tea ft Tuyết",
-      image: "./assets/img/song4.jpg",
-      path: "./assets/music/song4.mp3",
+      name: "Lắng nghe nước mắt",
+      author: "Mr.Siro",
+      image: "./assets/img/4.jfif",
+      path: "./assets/music/LangNgheNuocMat.mp3",
     },
     {
-      name: "Em không",
-      author: "Vũ Thanh Vân",
-      image: "./assets/img/song5.jpg",
-      path: "./assets/music/song5.mp3",
+      name: "Dưới những cơn mưa",
+      author: "Mr.Siro",
+      image: "./assets/img/5.jfif",
+      path: "./assets/music/DuoiNhungConMua.mp3",
     },
     {
-      name: "Một ngàn nỗi đau (live)",
-      author: "Mai Văn Hương X Trung Quân",
-      image: "./assets/img/song6.jpg",
-      path: "./assets/music/song6.mp3",
+      name: "Cung bậc sầu",
+      author: "Mr.Siro",
+      image: "./assets/img/6.jfif",
+      path: "./assets/music/CungBacSau.mp3",
     },
     {
-      name: "Từng là của nhau",
-      author: "Bảo Anh ft Táo",
-      image: "./assets/img/song7.jpg",
-      path: "./assets/music/song7.mp3",
+      name: "Người như chúng ta",
+      author: "Mr.Siro",
+      image: "./assets/img/7.jfif",
+      path: "./assets/music/NguoiNhuChungTa.mp3",
     },
     {
-      name: "Cầu Vĩnh Tuy",
-      author: "Wren Evans",
-      image: "./assets/img/song8.jpg",
-      path: "./assets/music/song8.mp3",
+      name: "Anh bước ra từ Manga",
+      author: "Mr.Siro",
+      image: "./assets/img/8.jfif",
+      path: "./assets/music/AnhBuocRaTuManga.mp3",
     },
     {
-      name: "Only",
-      author: "LeeHi",
-      image: "./assets/img/song9.jpg",
-      path: "./assets/music/song9.mp3",
+      name: "Gương mặt lạ lẫm",
+      author: "Mr.Siro",
+      image: "./assets/img/9.jfif",
+      path: "./assets/music/GươngMatLaLam.mp3",
     },
     {
-      name: "Cô đơn trên sofa (live)",
-      author: "Trung Quân",
-      image: "./assets/img/song10.jpg",
-      path: "./assets/music/song10.mp3",
+      name: "Mẹ hiểu con không",
+      author: "Mr.Siro",
+      image: "./assets/img/10.jfif",
+      path: "./assets/music/MeHieuConKhong.mp3",
     },
   ],
+
   randomSongs: [],
+
   render() {
     let htmls;
     if (this.isRandom) {
       htmls = this.randomSongs.map(
         (song, index) =>
           `
-                        <div class="song${
-                          index === this.currentIndex ? " active" : ""
-                        }" data-id = ${index}>
-                            <div class="thumb" style="background-image: url('${
-                              song.image
-                            }')"></div>
-                            <div class="body">
-                                <h3 class="title">${song.name}</h3>
-                                <p class="author">${song.author}</p>
-                            </div>
-                            <div class="option">
-                                <i class="fa-solid fa-ellipsis"></i>
-                                <ul class="option__menu">
-                                    <li class="option__item option__item--remove">Remove this song</li>
-                                </ul>
-                            </div>
-                        </div>
-                    `
+            <div class="song${
+              index === this.currentIndex ? " active" : ""
+            }" data-id = ${index}>
+                <div class="thumb" style="background-image: url('${
+                  song.image
+                }')"></div>
+                <div class="body">
+                    <h3 class="title">${song.name}</h3>
+                    <p class="author">${song.author}</p>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <ul class="option__menu">
+                        <li class="option__item option__item--remove">Remove this song</li>
+                    </ul>
+                </div>
+            </div>
+          `
       );
     } else {
       htmls = this.songs.map(
         (song, index) =>
           `
-                        <div class="song${
-                          index === this.currentIndex ? " active" : ""
-                        }" data-id = ${index}>
-                            <div class="thumb" style="background-image: url('${
-                              song.image
-                            }')"></div>
-                            <div class="body">
-                                <h3 class="title">${song.name}</h3>
-                                <p class="author">${song.author}</p>
-                            </div>
-                            <div class="option">
-                                <i class="fa-solid fa-ellipsis"></i>
-                                <ul class="option__menu">
-                                    <li class="option__item option__item--remove">Remove this song</li>
-                                </ul>
-                            </div>
-                        </div>
-                    `
+            <div class="song${
+              index === this.currentIndex ? " active" : ""
+            }" data-id = ${index}>
+                <div class="thumb" style="background-image: url('${
+                  song.image
+                }')"></div>
+                <div class="body">
+                    <h3 class="title">${song.name}</h3>
+                    <p class="author">${song.author}</p>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <ul class="option__menu">
+                        <li class="option__item option__item--remove">Remove this song</li>
+                    </ul>
+                </div>
+            </div>
+          `
       );
     }
     playlist.innerHTML = htmls.join("");
@@ -398,11 +405,13 @@ const app = {
       }%, transparent 0%)`;
     };
   },
+
   activeSong() {
     $(".song.active").classList.remove("active");
     const playlistNow = $$(".song");
     playlistNow[this.currentIndex].classList.add("active");
   },
+
   scrollActiveSongIntoView() {
     setTimeout(function () {
       $(".song.active").scrollIntoView({
@@ -411,6 +420,7 @@ const app = {
       });
     }, 100);
   },
+
   handleRandomSongs() {
     if (this.isRandom) {
       const lengthSongs = this.songs.length;
@@ -431,6 +441,7 @@ const app = {
     }
     this.swapIndex();
   },
+
   swapIndex() {
     const _this = this;
     let newIndex;
@@ -442,6 +453,7 @@ const app = {
       _this.currentIndex = newIndex;
     }
   },
+
   nextSong() {
     this.currentIndex++;
     if (this.currentIndex >= this.songs.length) {
@@ -449,6 +461,7 @@ const app = {
     }
     this.loadCurrentSong();
   },
+
   prevSong() {
     this.currentIndex--;
     if (this.currentIndex < 0) {
@@ -456,6 +469,7 @@ const app = {
     }
     this.loadCurrentSong();
   },
+
   start() {
     this.loadConfig();
     this.setupToConfig();
