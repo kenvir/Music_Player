@@ -333,19 +333,8 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 2px;
-}
-
-.footer__text {
-  font-size: 1.6rem;
-  color: var(--white-color);
-  letter-spacing: 3px;
-}
-
-.footer__img {
-  --size: 18px;
-  width: var(--size);
-  height: var(--size);
-  margin-left: 8px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .footer__social {
